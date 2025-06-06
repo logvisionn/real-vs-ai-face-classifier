@@ -1,7 +1,3 @@
-# ---------------------------------------------------------
-# model.py
-# ---------------------------------------------------------
-
 from torchvision.models import resnet18, ResNet18_Weights
 from torchvision.models import mobilenet_v2, MobileNet_V2_Weights
 import torch.nn as nn

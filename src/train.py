@@ -1,13 +1,6 @@
-# ---------------------------------------------------------
-# train.py  (fixed to suppress OpenMP duplication warnings)
-# ---------------------------------------------------------
-
 import os
 # ─── Suppress OpenMP “duplicate lib” error ─────────────────────
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
-# Optional: if you still see OpenMP issues, you can force single‐worker:
-# os.environ["OMP_NUM_THREADS"] = "1"
-# ──────────────────────────────────────────────────────────────
 
 import copy
 import argparse
