@@ -13,6 +13,8 @@ __pycache__/
 # Data folders
 data/raw/
 data/processed/
+data/ood_ai
+data/ood_real
 
 # dotenv files
 .env
