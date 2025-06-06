@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# PyTorch model weights
-*.pth
-*.pt
 
 # Jupyter notebooks checkpoints
 .ipynb_checkpoints/
