@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyTorch model weights
+*.pth
+*.pt
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Data folders
+data/raw/
+data/processed/
+
+# dotenv files
+.env
+
+# Logs
+*.log
+
+# PyCharm
+.idea/
+
+# Docker
+__pycache__/
+*.pytest_cache/
+*.vagrant/
