@@ -12,11 +12,12 @@ Deep-learning pipeline that distinguishes **real human faces** from **AI-generat
 ---
 
 ## 📑 Table of Contents
-1. [Folder Structure](#-folder-structure)  
-2. [Model Overview](#-model-overview)  
-3. [Performance](#-performance)  
-4. [Example Grad-CAM](#️-example-grad-cam)  
-5. [Quick Start](#-quick-start)  
+1. [Folder Structure](#-folder-structure)
+2. [Model Overview](#-model-overview)
+3. [Performance](#-performance)
+4. [Example Grad-CAM](#️-example-grad-cam)
+5. [Quick Start](#-quick-start)
+6. [Training](#-training)
 6. [Notebooks](#-notebooks)  
 7. [Environment](#-environment)  
 8. [License](#-license)  
@@ -107,6 +108,35 @@ docker run -p 8501:8501 face-classifier
 ```bash
 docker run -p 8501:8501 -v %cd%/models:/app/models face-classifier
 ```
+
+---
+## 🏋️ Training
+
+1. Place your raw datasets under `data/raw/real/` and `data/raw/ai/`.
+2. Preprocess and split them into train/val/test:
+
+```bash
+python src/data_preprocessing.py --real-raw data/raw/real --ai-raw data/raw/ai --processed-dir data/processed
+```
+
+3. Train the classifier (saves `best_model.pth` under `models/`):
+
+```bash
+python src/train.py --data-dir data/processed --output-dir models
+```
+
+4. Evaluate a saved model:
+
+```bash
+python src/train.py --evaluate-only --data-dir data/processed --output-dir models
+```
+
+Optional fine‑tuning on the hard‑real set:
+
+```bash
+python src/finetune_hard_real.py --data-dir data/hard_finetune --model-path models/best_model.pth --output-path models/best_model_finetuned.pth
+```
+
 
 ---
 

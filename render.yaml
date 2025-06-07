@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: real-vs-ai-classifier
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    buildCommand: ""
+    startCommand: "streamlit run app.py --server.port $PORT"
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"

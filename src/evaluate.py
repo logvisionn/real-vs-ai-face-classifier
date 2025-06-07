@@ -17,7 +17,7 @@ def get_test_loader(data_dir: str, batch_size: int, num_workers: int = 4):
 
 def main(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = FaceClassifier(backbone=args.backbone, pretrained=False)
+    model = FaceClassifier(backbone=args.backbone)
     model.load_state_dict(torch.load(args.model_path, map_location=device))
     model = model.to(device)
     model.eval()
