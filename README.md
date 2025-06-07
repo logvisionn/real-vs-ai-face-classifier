@@ -17,6 +17,7 @@ Deep-learning pipeline that distinguishes **real human faces** from **AI-generat
 ## 📑 Table of Contents
 1. [Folder Structure](#-folder-structure)
 2. [Model Overview](#-model-overview)
+3. [Limitation: No Face Detection](#-limitation-no-face-detection)
 3. [Performance](#-performance)
 4. [Example Grad-CAM](#️-example-grad-cam)
 5. [Quick Start](#-quick-start)
@@ -59,8 +60,19 @@ real-vs-ai-face-classifier/
 | Loss / Optimizer | Cross-entropy / Adam (1 e-4)         |
 | Training data    | ≈ 380 k faces (Real + StyleGAN/DDPM) |
 | Temperature T    | **1.7** (learned on validation set)  |
+---
+
+## ⚠️ Limitation: No Face Detection
+
+This model is a **binary classifier** trained to distinguish between **real** and **AI-generated** *face images*. It **does not verify** whether the input image actually contains a face.
+
+As a result, when uploading **non-face images** (e.g. landscapes, screenshots, objects), the model may still output a prediction like “Real — 72%”, because it’s forced to choose between two classes.
+
+➡️ **Tip:** For best results, upload a clear, frontal face photo.
+A future update may include automatic face detection to prevent misclassification on irrelevant inputs.
 
 ---
+
 
 ## 📈 Performance
 
