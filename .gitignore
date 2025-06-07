@@ -8,10 +8,9 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Data folders
-data/raw/
-data/processed/
-data/ood_ai
-data/ood_real
+data
+
+*.zip
 
 # dotenv files
 .env

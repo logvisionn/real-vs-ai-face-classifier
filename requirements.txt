@@ -1,7 +1,9 @@
-torch
-torchvision
-torchcam
-Pillow
 streamlit
-opencv-python-headless
+torch>=2.0.0
+torchvision
 numpy
+Pillow
+scikit-learn
+matplotlib
+captum
+opencv-python-headless

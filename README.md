@@ -1,40 +1,135 @@
-<!-- README.md -->
 
-## Real vs. AI-Generated Face Classifier
+# 🧠 Real vs AI Face Classifier
 
-A PyTorch-based binary classification project that distinguishes between real human faces and AI-generated ones. Includes Grad-CAM interpretability, a Streamlit interface, and Docker-based deployment. Suitable for portfolio/CV.
+Deep-learning pipeline that distinguishes **real human faces** from **AI-generated (GAN) faces**.
 
----
-
-### 🚀 Project Highlights (CV-Friendly)
-
-- **Binary classification** using transfer learning (ResNet18/MobileNetV2) on real vs. AI faces.
-- **Data pipeline**: Automated scripts for downloading and preprocessing CelebA (real) and “thispersondoesnotexist” (AI) images.
-- **Model interpretability**: Integrated Grad-CAM to visualize model attention.
-- **Deployment**: Interactive Streamlit web app with image upload and live inference.
-- **Containerization**: Dockerized app for easy deployment.
-- **CI/CD (optional)**: Sample GitHub Actions workflow for linting, unit tests, and Docker build.
+* ResNet-18 backbone + 2-unit head  
+* Grad-CAM visual explanations  
+* Temperature-scaled confidence ( *T ≈ 1.7 )  
+* Streamlit demo UI  
+* One-command Docker deployment  
 
 ---
 
-### 📝 Table of Contents
-
-1. [Installation](#installation)  
-2. [Folder Structure](#folder-structure)  
-3. [Dataset Acquisition & Preprocessing](#dataset-acquisition--preprocessing)  
-4. [Model Training & Evaluation](#model-training--evaluation)  
-5. [Grad-CAM Interpretability](#grad-cam-interpretability)  
-6. [Web App Deployment (Streamlit)](#web-app-deployment-streamlit)  
-7. [Docker Packaging](#docker-packaging)  
-8. [(Optional) GitHub Actions CI/CD](#optional-github-actions-cicd)  
-9. [Usage](#usage)  
-10. [References](#references)
+## 📑 Table of Contents
+1. [Folder Structure](#-folder-structure)  
+2. [Model Overview](#-model-overview)  
+3. [Performance](#-performance)  
+4. [Example Grad-CAM](#️-example-grad-cam)  
+5. [Quick Start](#-quick-start)  
+6. [Notebooks](#-notebooks)  
+7. [Environment](#-environment)  
+8. [License](#-license)  
 
 ---
 
-### Installation
+## 📂 Folder Structure
+```txt
+real-vs-ai-face-classifier/
+├── app.py                    # Streamlit web app
+├── Dockerfile                # Container recipe
+├── models/
+│   ├── best_model_finetuned.pth
+│   └── best_temperature.pt
+├── src/
+│   ├── model.py
+│   ├── gradcam.py
+│   ├── train.py
+│   └── …
+├── notebooks/
+│   ├── 01-data-exploration.ipynb
+│   ├── 02-gradcam-demo.ipynb
+│   └── 03-temperature-scaling.ipynb
+├── requirements.txt
+└── .gitignore
+````
 
-1. **Clone the repository**  
-   ```bash
-   git clone https://github.com/<YOUR_USERNAME>/real-vs-ai-face-classifier.git
-   cd real-vs-ai-face-classifier
+---
+
+## 🧠 Model Overview
+
+| Item             | Details                              |
+| ---------------- | ------------------------------------ |
+| Backbone         | ResNet-18 (ImageNet weights)         |
+| Head             | `AdaptiveAvgPool2d → FC(512, 2)`     |
+| Loss / Optimizer | Cross-entropy / Adam (1 e-4)         |
+| Training data    | ≈ 380 k faces (Real + StyleGAN/DDPM) |
+| Temperature T    | **1.7** (learned on validation set)  |
+
+---
+
+## 📈 Performance
+
+| Dataset / Metric           | Accuracy   |
+| -------------------------- | ---------- |
+| Standard test split        | **99.2 %** |
+| Fine-tuned (hard-real) set | 90.0 %     |
+| OOD AI (500)               | 88 %       |
+| OOD Real (500)             | 85 %       |
+
+---
+
+## 🖼️ Example Grad-CAM
+
+| Real Face                                        | AI-Generated                                     |
+| ------------------------------------------------ | ------------------------------------------------ |
+| <img src="images/real_gradcam.png" width="200"/> | <img src="images/fake_gradcam.png" width="200"/> |
+
+---
+
+## 🚀 Quick Start
+
+### 1 · Clone the repo
+
+```bash
+git clone https://github.com/logvisionn/real-vs-ai-face-classifier.git
+cd real-vs-ai-face-classifier
+```
+
+### 2 · Run locally (Conda)
+
+```bash
+conda env create -f environment.yml
+conda activate face-classifier
+streamlit run app.py
+```
+
+### 3 · Run with Docker
+
+```bash
+docker build -t face-classifier .
+docker run -p 8501:8501 face-classifier
+# open http://localhost:8501
+```
+
+📌 Update weights live (no rebuild):
+
+```bash
+docker run -p 8501:8501 -v %cd%/models:/app/models face-classifier
+```
+
+---
+
+## 🔬 Notebooks
+
+| Notebook                   | Purpose                                           |
+| -------------------------- | ------------------------------------------------- |
+| **01-data-exploration**    | Sample images, class distribution                 |
+| **02-gradcam-demo**        | Grad-CAM on mis/correct & OOD faces               |
+| **03-temperature-scaling** | Learns scalar *T* and saves `best_temperature.pt` |
+
+---
+
+## 📦 Environment
+
+Key packages (full list in `requirements.txt` / `environment.yml`):
+
+* `torch >= 2.0`  ·  `torchvision`  ·  `captum`
+* `opencv-python-headless`  ·  `streamlit`  ·  `scikit-learn`
+
+---
+
+## © License
+
+MIT — free for personal and commercial use with attribution.
+
