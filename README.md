@@ -40,7 +40,9 @@ real-vs-ai-face-classifier/
 │   ├── model.py
 │   ├── gradcam.py
 │   ├── train.py
-│   └── …
+│   ├── evaluate.py
+│   ├── finetune_hard_real.py
+│   └── data_preprocessing.py
 ├── notebooks/
 │   ├── 01-data-exploration.ipynb
 │   ├── 02-gradcam-demo.ipynb
