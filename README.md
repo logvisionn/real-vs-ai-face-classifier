@@ -2,7 +2,7 @@
 
 🔗 **Live Demo:** [real-vs-ai-face-classifier.onrender.com](https://real-vs-ai-face-classifier.onrender.com)  
 🕒 **Note:** This app is hosted on Render’s free tier.  
-It may take 20–30 seconds to wake up on first visit due to cold start.
+It may take 3-5 mins to wake up on first visit due to cold start.
 
 Deep-learning pipeline that distinguishes **real human faces** from **AI-generated (GAN) faces**.
 
